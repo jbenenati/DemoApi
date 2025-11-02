@@ -27,6 +27,6 @@ public class UsersController : ControllerBase
             new { u = userName });
 
         if (user is null) return NotFound();
-        return Ok(user);
+        return Ok(user); 
     }
 }
