@@ -9,8 +9,4 @@ namespace DemoApi.Controllers;
 [Route("api/[controller]")]
 public class UsersController : ControllerBase
 {
-    private readonly IConfiguration _cfg;
-    public UsersController(IConfiguration cfg) => _cfg = cfg;
-
-
 }
