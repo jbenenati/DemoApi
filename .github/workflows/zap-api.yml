@@ -1,0 +1,24 @@
+name: zap-api
+on: { workflow_dispatch: {} }
+
+jobs:
+  zap:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Start API
+        run: |
+          nohup dotnet run --project src/DemoApi --urls http://localhost:5000 > api.log 2>&1 &
+          sleep 8
+
+      - name: ZAP API scan
+        run: |
+          docker run --rm -t -v "$PWD:/zap/wrk" --network host ghcr.io/zaproxy/zaproxy:stable \
+          zap-api-scan.py -t http://localhost:5000/swagger/v1/swagger.json -f openapi -r zap_api_report.html -m 1
+
+      - name: Upload report
+        uses: actions/upload-artifact@v4
+        with:
+          name: zap_api_report
+          path: zap_api_report.html
