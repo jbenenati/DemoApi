@@ -1,0 +1,6 @@
+root = true
+
+[*.cs]
+dotnet_analyzer_diagnostic.category-Security = error
+dotnet_diagnostic.CA2100.severity = error   # SQL queries should be parameterized
+dotnet_diagnostic.CA5364.severity = error   # Do not use deprecated security algorithms
