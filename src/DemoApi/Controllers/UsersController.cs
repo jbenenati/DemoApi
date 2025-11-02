@@ -26,6 +26,10 @@ public class UsersController : ControllerBase
             "SELECT TOP 1 Id, UserName FROM Users WHERE UserName = @u",
             new { u = userName });
 
+        var sql = $"SELECT TOP 1 Id, UserName FROM Users WHERE UserName = '{userName}'";
+        var cmd = new SqlCommand(sql, conn); using var reader = await cmd.ExecuteReaderAsync();
+
+
         if (user is null) return NotFound();
         return Ok(user);
     }
